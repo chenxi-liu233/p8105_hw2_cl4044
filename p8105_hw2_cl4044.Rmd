@@ -128,4 +128,65 @@ There are ``nrow(filter_a_df)`` rows of distinct stations serve the A train.
 There are ``nrow(filter(filter_a_df, ada == TRUE))`` of the stations that serve the A train that are ADA compliant.
 
 
+## Problem 3
+Read and clean the data in ``pols-month.csv``.
+```{r}
+pols_month_df = 
+	read_csv("./data/pols-month.csv") %>%
+  janitor::clean_names() %>%
+  separate(mon, c("year", "month", "day")) %>%
+  	mutate(year = as.integer(year))
+
+pols_month_df$president = ifelse(pols_month_df$prez_dem == 1, 'dem', 'gop')
+pols_month_df = subset(pols_month_df, select = -c(prez_dem, prez_gop)) %>% 
+  relocate(year, month, president)
+
+# change month numbers to names
+pols_month_df$month = month.name[as.numeric(pols_month_df$month)]
+pols_month_df %>% relocate(year, month, president)
+pols_month_df
+```
+
+Read and clean the data in ``snp.csv``.
+```{r}
+snp_df = 
+  read_csv(file = "./data/snp.csv") %>% 
+  janitor::clean_names()  %>% 
+  separate(date, c("month", "day", "year")) %>% 
+  subset(select = -day) %>% 
+  relocate(year) %>%
+  mutate(year = as.integer(year))
+
+# change month numbers to names
+snp_df$month = month.name[as.numeric(snp_df$month)]
+snp_df
+```
+
+Read and clean the data in ``unemployment.csv``.
+```{r}
+unemployment_df = 
+  read_csv(file = "./data/unemployment.csv") %>% 
+  janitor::clean_names() %>%
+  mutate( year = as.integer(year))
+# change month abbr to full names
+colnames(unemployment_df)[2:13] = month.name
+unemployment_df = pivot_longer(
+  unemployment_df, 
+  January:December,
+  names_to = "month",
+  values_to = "unemployment_rate")
+unemployment_df
+
+```
+
+Join the datasets by merging ``snp`` into ``pols``, and merging ``unemployment`` into the result. Key is ``year`` and ``month``. 
+```{r}
+merged_df = left_join(pols_month_df, snp_df, by = c("year", "month"))
+merged_df = left_join(merged_df, unemployment_df,  by = c("year", "month")) %>%
+  relocate(year, month, president, close, unemployment_rate)
+merged_df
+```
+
+
+
 
