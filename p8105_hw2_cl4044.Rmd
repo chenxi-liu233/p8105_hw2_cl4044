@@ -97,7 +97,7 @@ transit_df =
 transit_df
 str(transit_df)
 ```
-This dataset contains line, station_name, station_latitude, station_longitude, routes served(route1, route2 …), entrance_type, entry, vending, ada. I first performed ``clean_names`` function from the janitor package. This is usually the first function to apply when tidying a dataset. Then I used ``select`` function to remove the uneeded columns. Then I used ``mutate`` function to change "YES" and "NO" to logical values. The dimension of this dataframe is 1,868 × 19 (rows x columns). These data are not tidy because route 8-11 are numeric varibles. Route1-11 all has its seprate columns.  
+This dataset contains varibles that are line, station_name, station_latitude, station_longitude, routes served(route1, route2 …), entrance_type, entry, vending, ada. I first performed ``clean_names`` function from the janitor package. This is usually the first function to apply when tidying a dataset. Then I used ``select`` function to remove the unneeded columns. Then I used ``mutate`` function to change "YES" and "NO" to logical values. The dimension of this dataframe is `r nrow(transit_df)` x `r ncol(transit_df)`. These data are not tidy because Route 8-11 are numeric variables. Route 1-11 all has its separate columns.  
 
 Created a subset of the original dataframe. Added a row called ``line_name`` that combines the column ``line`` and ``station_name``.
 ```{r}
@@ -188,13 +188,13 @@ merged_df = left_join(merged_df, unemployment_df,  by = c("year", "month")) %>%
 merged_df
 ```
 
-``pols_month_df`` contains `r nrow(pols_month_df)` rows of `r ncol(pols_month_df)` columns. The year ranges from 1947 to 2015. The 9 varibles are year, month, president, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem. gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem are related to the number of national politician who are democratic or republican at any given time; the president variable specifies whether the president was democratic or republican.
+``pols_month_df`` contains `r nrow(pols_month_df)` rows X `r ncol(pols_month_df)` columns. The year ranges from 1947 to 2015. The 9 varibles are year, month, president, gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem. gov_gop, sen_gop, rep_gop, gov_dem, sen_dem, rep_dem are related to the number of national politician who are democratic or republican at any given time; the president variable specifies whether the president was democratic or republican.
 
-``snp_df``contains `r nrow(snp_df)` rows of `r ncol(snp_df)` columns.  The year ranges from 1950 to 2015. The 3 variables are year, month, close. The close variable represents the closing market index of the S&P stock index on the that date.
+``snp_df``contains `r nrow(snp_df)` rows X `r ncol(snp_df)` columns.  The year ranges from 1950 to 2015. The 3 variables are year, month, close. The close variable represents the closing market index of the S&P stock index on the that date.
 
-``unemployment_df`` contains `r nrow(unemployment_df)` rows of `r ncol(unemployment_df)` columns. The year ranges from 1948 to 2015. The 3 variables are year, month, and unemployemennt rate. The employment variable represents the unemployement rate in that month of the year.
+``unemployment_df`` contains `r nrow(unemployment_df)` rows X `r ncol(unemployment_df)` columns. The year ranges from 1948 to 2015. The 3 variables are year, month, and unemployemennt rate. The employment variable represents the unemployement rate in that month of the year.
 
-``merged_df`` contains `r nrow(merged_df)` rows and `r ncol(merged_df)` columns. The year ranges from 1947 to 2015. It joins the three dataframes described above by year and month.
+``merged_df`` contains `r nrow(merged_df)` rows X `r ncol(merged_df)` columns. The year ranges from 1947 to 2015. It joins the three dataframes described above by year and month.
 
 
 
