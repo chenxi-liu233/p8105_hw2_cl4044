@@ -106,8 +106,8 @@ uniq_station_df = unite(transit_df, "line_name", line:station_name, remove = FAL
 nrow(uniq_station_df)
 nrow(filter(uniq_station_df, ada == TRUE))
 # proportion of station entrances/exits without vending allow entrance
-sum(uniq_station_df$vending == FALSE & uniq_station_df$entry == TRUE)/
-  sum(uniq_station_df$vending == FALSE)
+sum(transit_df$vending == FALSE & transit_df$entry == TRUE)/
+  sum(transit_df$vending == FALSE)
 ```
 There are ``nrow(uniq_station_df)`` disrinct stations. ``nrow(filter(uniq_station_df, ada == TRUE))`` are ADA compliant. 
 
